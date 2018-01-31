@@ -65,3 +65,14 @@ RUN mkdir /opencv-${OPENCV_VERSION}/cmake_binary \
   && rm -r /opencv-${OPENCV_VERSION} \
   && rm /opencv_contrib.zip \
   && rm -r /opencv_contrib-${OPENCV_VERSION}
+
+RUN ldconfig -v \
+  && git clone https://github.com/pjreddie/darknet.git \
+  && cd darknet \
+  && sed -i -e "s|^OPENCV=0|OPENCV=1|" Makefile \
+  && make \
+  && ln -fs /darknet/darknet /usr/bin/darknet
+
+RUN wget -O /darknet/yolo.weights https://pjreddie.com/media/files/yolo.weights
+RUN wget -O /darknet/tiny.weights https://pjreddie.com/media/files/tiny.weights
+RUN wget -O /darknet/tiny-yolo-voc.weights https://pjreddie.com/media/files/tiny-yolo-voc.weights
