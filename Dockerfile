@@ -76,3 +76,10 @@ RUN ldconfig -v \
 RUN wget -O /darknet/yolo.weights https://pjreddie.com/media/files/yolo.weights
 RUN wget -O /darknet/tiny.weights https://pjreddie.com/media/files/tiny.weights
 RUN wget -O /darknet/tiny-yolo-voc.weights https://pjreddie.com/media/files/tiny-yolo-voc.weights
+
+RUN pip install Pillow
+
+RUN git clone https://github.com/puzzledqs/BBox-Label-Tool \
+  && 2to3 -w /BBox-Label-Tool/main.py
+RUN echo '#!/bin/bash\npython /BBox-Label-Tool/main.py $*' > /usr/bin/bblt \
+  && chmod +x /usr/bin/bblt
