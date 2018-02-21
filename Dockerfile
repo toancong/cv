@@ -83,3 +83,5 @@ RUN git clone https://github.com/puzzledqs/BBox-Label-Tool \
   && 2to3 -w /BBox-Label-Tool/main.py
 RUN echo '#!/bin/bash\npython /BBox-Label-Tool/main.py $*' > /usr/bin/bblt \
   && chmod +x /usr/bin/bblt
+
+RUN wget -O /darknet/darknet19_448.conv.23 https://pjreddie.com/media/files/darknet19_448.conv.23
